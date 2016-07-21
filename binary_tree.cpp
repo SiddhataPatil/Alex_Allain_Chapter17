@@ -5,6 +5,7 @@
  Copyright   : Copyright ©  Siddhata Patil. Sourcecode rights reserved.
  Copyright   : Copyright ©  Alex_Allain_Jumping_into_Cpp_Book. Question rights reserved.
  Question    : Write a program to implement a simple binary tree
+ // For checking for output, type a no, enter, type another no, enter, type l (for left) OR r (for right)
  ==============================================================================================================================
  */
 #include <iostream>
