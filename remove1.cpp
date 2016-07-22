@@ -4,11 +4,11 @@
  Author      : Siddhata Patil
  Copyright   : Copyright ©  Siddhata Patil. Sourcecode rights reserved.
  Copyright   : Copyright ©  Alex_Allain_Jumping_into_Cpp_Book. Question rights reserved.
- Question    : Remove an element from a binary tree Case 1: It has no children.
+ Question    : Remove an element from a binary tree Case 1: It has no children. Case 2: Has one Child Case 3: Has two children
  ==============================================================================================================================
  */
  
- #include <iostream>
+#include <iostream>
 using namespace std;
 
 struct node
@@ -37,6 +37,53 @@ node* insert1 (node *tree, int new_data)
         tree->right = insert1(tree->right, new_data);
 }
 
+node* maximum(node* tree)
+{
+    if(tree==NULL) return NULL;
+    if(tree->right==NULL) return tree;
+    else return maximum(tree->right);
+}
+
+node* remove1(node* tree, int value)
+{
+    if(tree==NULL)
+    {
+        return NULL;
+    }
+    if(tree->data==value)
+    {
+
+        if ( tree->left == NULL )
+        {
+        node* right_subtree = tree->right;
+        tree->data=0;
+        delete tree;
+        return right_subtree;
+        }
+        if ( tree->right == NULL )
+        {
+        node* left_subtree = tree->left;
+        tree->data=0;
+        delete tree;
+        return left_subtree;
+        }
+        node* max_node = maximum( tree->left );
+        max_node->left = tree->left;
+        max_node->right = tree->right;
+        tree->data=0;
+        delete tree;
+        return max_node;
+    }
+    else if (tree->data > value)
+    {
+         return remove1(tree->left,value);
+    }
+    else if (tree->data < value)
+    {
+         return remove1(tree->right,value);
+    }
+}
+
 void print1(node* p1)
 {
     cout<<"                          "<<p1->data<<endl;
@@ -48,33 +95,6 @@ void print1(node* p1)
     cout<<"                          "<<p1->right->right->data;
 }
 
-node* remove1(node* p1, int value)
-{
-    if(p1==NULL)
-    {
-        return NULL;
-    }
-    if(p1->data==value)
-    {
-        if(p1->left==NULL && p1->right==NULL)
-        {
-        cout <<"\nDeleting..."<<p1->data<<endl;
-        p1->data=0;
-        delete p1->left;
-        delete p1->right;
-        delete p1;
-        return NULL;
-        }
-    }
-    else if (p1->data > value)
-    {
-         return remove1(p1->left,value);
-    }
-    else if (p1->data < value)
-    {
-         return remove1(p1->right,value);
-    }
-}
 
 
 int main()
@@ -89,7 +109,8 @@ p = insert1 (p, 14);
 p = insert1 (p, 18);
 p = insert1 (p, 11);
 print1(p);
-p1=remove1(p, 7);
+p1 = remove1(p,7);
+cout<<endl;
 print1(p);
 system ("pause");
 return 0;
