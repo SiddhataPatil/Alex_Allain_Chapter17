@@ -11,9 +11,6 @@
 #include <iostream>
 using namespace std;
 
-#include <iostream>
-using namespace std;
-
 struct node
 {
     node* left;
@@ -42,9 +39,15 @@ node* insert1 (node *tree, int new_data)
 
 void print1(node* p1)
 {
-    cout<<"         "<<p1->data<<endl;
-    cout<<p1->left->data;
-    cout<<"                 "<<p1->right->data<<endl;
+    cout<<"                          "<<p1->data<<endl;
+    cout<<"      "<<p1->left->data;
+    cout<<"                                      "<<p1->right->data<<endl;
+    cout<<p1->left->left->data;
+    cout<<"              "<<p1->left->right->data;
+    cout<<"                 "<<p1->right->left->data;
+    cout<<"                          "<<p1->right->right->data;
+
+
 }
 
 node* search1(node* p1, int value)
@@ -70,15 +73,20 @@ int main()
 {
 node* p = NULL;
 node* p1;
-p = insert1 (p, 5);
+p = insert1 (p, 10);
 p1=p;
-p = insert1 (p, 3);
+p = insert1 (p, 6);
+p = insert1 (p, 5);
 p = insert1 (p, 7);
+p = insert1 (p, 14);
+p = insert1 (p, 18);
+p = insert1 (p, 11);
 
-print1(p1);
 
-p1=search1 (p1, 3);
-cout<<"Value found:"<<p1->data<<" at "<<p1<<endl;
+print1(p);
+
+p1=search1 (p1, 14);
+cout<<"\n Value found:"<<endl;
 
 system ("pause");
 return 0;
