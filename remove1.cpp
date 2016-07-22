@@ -2,8 +2,7 @@
  ==============================================================================================================================
  Name        : remove.cpp
  Author      : Siddhata Patil
- Copyright   : Copyright ©  Siddhata Pati and GeeksforGeeks(void inorder(struct node *root), struct node * minValueNode(struct node* node),
-               struct node* remove1(struct node* root, int key)). Sourcecode rights reserved.
+ Copyright   : Copyright ©  Siddhata Pati and GeeksforGeeks(struct node* remove1(struct node* root, int key)).Sourcecode rights reserved.
  Copyright   : Copyright ©  Alex_Allain_Jumping_into_Cpp_Book. Question rights reserved.
  Question    : Remove an element from a binary tree Case 1: It has no children. Case 2: Has one Child Case 3: Has two children
  ==============================================================================================================================
@@ -38,41 +37,30 @@ node* insert1 (node *tree, int new_data)
         tree->right = insert1(tree->right, new_data);
 }
 
-node* maximum(node* tree)
+void inorder(node *tree)
+{
+    if (tree!=NULL)
+    {
+        inorder(tree->left);
+        cout<<tree->data<<endl;
+        inorder(tree->right);
+    }
+}
+
+node* minimum(node* tree)
 {
     if(tree==NULL) return NULL;
-    if(tree->right==NULL) return tree;
-    else return maximum(tree->right);
+    if(tree->left==NULL) return tree;
+    else return minimum(tree->left);
 }
 
-void inorder(struct node *root)
-{
-	if (root != NULL)
-	{
-		inorder(root->left);
-		printf("%d ", root->data);
-		inorder(root->right);
-	}
-}
-/* Given a non-empty binary search tree, return the node with minimum
-key value found in that tree. Note that the entire tree does not
-need to be searched. */
-struct node * minValueNode(struct node* node)
-{
-	struct node* current = node;
 
-	/* loop down to find the leftmost leaf */
-	while (current->left != NULL)
-		current = current->left;
-
-	return current;
-}
 
 /* Given a binary search tree and a key, this function deletes the key
 and returns the new root */
 struct node* remove1(struct node* root, int key)
 {
-	// base case
+
 	if (root == NULL) return root;
 
 	// If the key to be deleted is smaller than the root's key,
@@ -93,19 +81,19 @@ struct node* remove1(struct node* root, int key)
 		if (root->left == NULL)
 		{
 			struct node *temp = root->right;
-			free(root);
+			delete root;
 			return temp;
 		}
 		else if (root->right == NULL)
 		{
 			struct node *temp = root->left;
-			free(root);
+			delete root;
 			return temp;
 		}
 
 		// node with two children: Get the inorder successor (smallest
 		// in the right subtree)
-		struct node* temp = minValueNode(root->right);
+		struct node* temp = minimum(root->right);
 
 		// Copy the inorder successor's content to this node
 		root->data = temp->data;
