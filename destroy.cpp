@@ -78,7 +78,7 @@ p = insert1 (p, 18);
 p = insert1 (p, 11);
 print1(p);
 destroy(p);
-print1(p);
+
 system ("pause");
 return 0;
 }
